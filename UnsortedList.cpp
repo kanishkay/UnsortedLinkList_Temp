@@ -55,6 +55,9 @@ void UnsortedList<T>::DeleteItem(T item) {
     while (currN != nullptr) {
         if (currN -> data == item) {
             prevN -> next = currN -> next;
+            delete currN;           // Make address 200 available
+            currN = nullptr;        // Don't have to necessarily
+            break;
         }
         prevN = currN;              // Previous is now current
         currN = currN -> next;      // Update current
