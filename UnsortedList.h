@@ -56,6 +56,12 @@ public:
 
 private:
   int length;
+  struct Node {
+    T data;
+    Node *next;
+  };
+  Node * head;
+  Node *iterPos;
 
   // Need to create the head... and a node definition
   // Also need something to track the iterator position
