@@ -50,6 +50,15 @@ void UnsortedList<T>::AddItem(T item) {
 
 template<class T>
 void UnsortedList<T>::DeleteItem(T item) {
+    Node *prevN = nullptr;      // Nothing previous
+    Node *currN = head;
+    while (currN != nullptr) {
+        if (currN -> data == item) {
+            prevN -> next = currN -> next;
+        }
+        prevN = currN;              // Previous is now current
+        currN = currN -> next;      // Update current
+    }
 
 }
 
