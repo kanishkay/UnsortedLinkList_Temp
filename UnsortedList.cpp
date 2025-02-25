@@ -9,12 +9,26 @@ UnsortedList<T>::UnsortedList() {
 
 template<class T>
 void UnsortedList<T>::MakeEmpty() {
-
+    while (head != nullptr) {
+        Node *oldHead = head;
+        head = head -> next;
+        delete oldHead;
+    }
+    head = nullptr;
+    length = 0;
 }
 
 template<class T>
 bool UnsortedList<T>::IsFull() const {
-    return false;
+    try {
+        Node *testNode = new Node;      // try to make a new node
+        delete testNode;
+        return false;
+    }
+    catch (std::bad_alloc) {
+        return true;
+    }
+
 }
 
 template<class T>
@@ -55,8 +69,17 @@ void UnsortedList<T>::DeleteItem(T item) {
     while (currN != nullptr) {
         if (currN -> data == item) {
             prevN -> next = currN -> next;
+            if (prevN == nullptr) {
+                head = currN->next;         // Head is no longer pointing to the thing
+            }
+            else {
+                prevN->next = currN->next;
+            }
+
+            // Delete 200 first, then set it to null
             delete currN;           // Make address 200 available
             currN = nullptr;        // Don't have to necessarily
+            length--;               // Bookkeeping
             break;
         }
         prevN = currN;              // Previous is now current
